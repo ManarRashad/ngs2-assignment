@@ -47,16 +47,16 @@ samtools faidx /media/ngs-01/My_Passport/ngs2workspace/ngs2_ass/chr22/chr22_with
 wget ftp://ftp.ensembl.org/pub/grch37/current/variation/vcf/homo_sapiens/homo_sapiens-chr22.vcf.gz -O chr22.vcf.gz
 gunzip chr22.vcf.gz
 
-#grep "^#" chr22.vcf > fam_chr22.vcf
-#grep "^22" chr22.vcf | sed 's/^22/22 dna_sm:chromosome chromosome:GRCh38:22:1:50818468:1 REF
+grep "^#" chr22.vcf > fam_chr22.vcf
+grep "^22" chr22.vcf | sed 's/^22/22 dna_sm:chromosome chromosome:GRCh38:22:1:50818468:1 REF
 /' >> fam_chr22.vcf
-#gatk IndexFeatureFile -F fam_chr22.vcf
+gatk IndexFeatureFile -F fam_chr22.vcf
 
 # base recalibration:
-#gatk --java-options "-Xmx2G" BaseRecalibrator -R /media/ngs-01/My_Passport/ngs2workspace/ngs2_ass/chr22/chr22_with_ERCC92.fa -I split.bam --known-sites fam_chr22.vcf -O split.report
+gatk --java-options "-Xmx2G" BaseRecalibrator -R /media/ngs-01/My_Passport/ngs2workspace/ngs2_ass/chr22/chr22_with_ERCC92.fa -I split.bam --known-sites fam_chr22.vcf -O split.report
 
 #BQSR
-#gatk --java-options "-Xmx2G" ApplyBQSR -R /media/ngs-01/My_Passport/ngs2workspace/ngs2_ass/chr22/chr22_with_ERCC92.fa -I split.bam -bqsr split.report -O split.bqsr.bam --add-output-sam-program-record --emit-original-quals
+gatk --java-options "-Xmx2G" ApplyBQSR -R /media/ngs-01/My_Passport/ngs2workspace/ngs2_ass/chr22/chr22_with_ERCC92.fa -I split.bam -bqsr split.report -O split.bqsr.bam --add-output-sam-program-record --emit-original-quals
 
 
 
